@@ -32,13 +32,6 @@
 % the typewriter font.
 \usepackage{inconsolata}
 
-
-% If the title and author information does not fit in the area allocated, uncomment the following
-%
-%\setlength\titlebox{<dim>}
-%
-% and set <dim> to something 5cm or larger.
-
 \title{Assessing the Impact Score of Scientific Publications through the Analysis of Abstracts and their Metadata}
 
 
@@ -62,12 +55,10 @@ An impact score of the academic paper is a metric critically important for a sci
 
 \section{Background}
 % Not done. Supppoesed to describe motivation for the work.
-This is where we discuss background literature. \citep{hs2022}
-% Not done
+A few attempts have been made to address this issue, demonstrating modest but encouraging success. \citep{Macri2023-tr, Alohali2022-no, 10.1162/qss_a_00258, doi:10.1152/japplphysiol.00489.2020} The most sophisticated model utilized BERT context-aware encoding of the abstract to produce embeddings that were then classified using  SVM, logistic regression or XGBoost to predict the impact factor quintile. This approach demonstrated prediction accuracy of approx. 75%.
 
 \section{Data}
-% Not done. Supppoesed to describe motivation for the work.
-Brief description of data
+In our work, we will rely on the data extracted from the Web of Science, a paid-access platform that provides access to reference and citation data from academic journals and conference proceedings. The platform allows downloading csv files with the article abstract along with the ISSN identifier of the journal and other metadata. To compose a homogeneous dataset we will focus on a narrow field of radioligand therapy and select only original peer-reviewed articles published between 2000 and 2024. The dataset contains 9137 records and takes up 33MB of disk space. Journal impact factors come from the Claritive Analytics “Journal Impact Factor Report” and contain the journal ISSN as well as the impact factor, by year.
 \subsection{ETL}
 Short description of how downloaded data was transformed into final dataframe. 
 \subsection{EDA}
@@ -80,31 +71,15 @@ Appendix~\ref{sec:appendix} will contain full EDA
 \end{figure}
 % Not done
 
-\begin{table}
-\centering
-\begin{tabular}{lc}
-\hline
-\textbf{Command} & \textbf{Output}\\
-\hline
-\verb|{\`i}| & {\`i} \\ 
-\verb|{\.I}| & {\.I} \\ 
-\verb|{\o}| & {\o} \\
-\verb|{\aa}| & {\aa}  \\\hline
-\end{tabular}
-\begin{tabular}{lc}
-\hline
-\textbf{Command} & \textbf{Output}\\
-\hline 
-\verb|{\l}| & {\l} \\ 
-\verb|{\~n}| & {\~n} \\ 
-\verb|{\H o}| & {\H o} \\ 
-\verb|{\v r}| & {\v r} \\ 
-\hline
-\end{tabular}
-\caption{Example commands for accented characters, to be used in, \emph{e.g.}, Bib\TeX{} entries.}
-\label{tab:accents}
-\end{table}
+\section{Methods}
+% Not done. Supppoesed to describe motivation for the work.
+We are planning to use the sciBERT model in combination with a convolutional network to predict the impact factor. SciBERT was trained on a large corpus of scientific text, including biomedical publications, making us hopeful that it will produce better results on our data set. The exact architecture of the model will be determined via experimentation, but we plan to investigate using convolutional layers on top of all embeddings or separating out sentence-level tokens as a separate input into the final layer, akin to the approach in reference \citep{hs2022}.
 
+\section{Results and discussion}
+For your baseline model, though feel free to include material for anything else you’ve done
+
+\section{Conclusions and Next Steps}
+Section for work you plan to do before submitting the final version. IN the final version that is' going be only conclusions. 
 
 \section*{Limitations}
 While we are open to different types of limitations, just mentioning that a set of results have been shown for English only probably does not reflect what we expect. 
@@ -121,5 +96,30 @@ In addition, limitations such as low scalability to long text, the requirement o
 \label{sec:appendix}
 
 This is a section in the appendix.
+% This is a table template
+\begin{table}
+	\centering
+	\begin{tabular}{lc}
+		\hline
+		\textbf{Command} & \textbf{Output}\\
+		\hline
+		\verb|{\`i}| & {\`i} \\ 
+		\verb|{\.I}| & {\.I} \\ 
+		\verb|{\o}| & {\o} \\
+		\verb|{\aa}| & {\aa}  \\\hline
+	\end{tabular}
+	\begin{tabular}{lc}
+		\hline
+		\textbf{Command} & \textbf{Output}\\
+		\hline 
+		\verb|{\l}| & {\l} \\ 
+		\verb|{\~n}| & {\~n} \\ 
+		\verb|{\H o}| & {\H o} \\ 
+		\verb|{\v r}| & {\v r} \\ 
+		\hline
+	\end{tabular}
+	\caption{Example commands for accented characters, to be used in, \emph{e.g.}, Bib\TeX{} entries.}
+	\label{tab:accents}
+\end{table}
 
 \end{document}

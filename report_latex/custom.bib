@@ -42,3 +42,144 @@
   year={2022},
   url={https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1224/reports/custom_116826881.pdf}
 }
+
+@ARTICLE{Macri2023-tr,
+  title    = "Evaluating the ability of open-source artificial intelligence to
+              predict accepting-journal impact factor and Eigenfactor score
+              using academic article abstracts: Cross-sectional machine
+              learning analysis",
+  author   = "Macri, Carmelo and Bacchi, Stephen and Teoh, Sheng Chieh and Lim,
+              Wan Yin and Lam, Lydia and Patel, Sandy and Slee, Mark and
+              Casson, Robert and Chan, Wengonn",
+  abstract = "BACKGROUND: Strategies to improve the selection of appropriate
+              target journals may reduce delays in disseminating research
+              results. Machine learning is increasingly used in content-based
+              recommender algorithms to guide journal submissions for academic
+              articles. OBJECTIVE: We sought to evaluate the performance of
+              open-source artificial intelligence to predict the impact factor
+              or Eigenfactor score tertile using academic article abstracts.
+              METHODS: PubMed-indexed articles published between 2016 and 2021
+              were identified with the Medical Subject Headings (MeSH) terms
+              ``ophthalmology,'' ``radiology,'' and ``neurology.'' Journals,
+              titles, abstracts, author lists, and MeSH terms were collected.
+              Journal impact factor and Eigenfactor scores were sourced from
+              the 2020 Clarivate Journal Citation Report. The journals included
+              in the study were allocated percentile ranks based on impact
+              factor and Eigenfactor scores, compared with other journals that
+              released publications in the same year. All abstracts were
+              preprocessed, which included the removal of the abstract
+              structure, and combined with titles, authors, and MeSH terms as a
+              single input. The input data underwent preprocessing with the
+              inbuilt ktrain Bidirectional Encoder Representations from
+              Transformers (BERT) preprocessing library before analysis with
+              BERT. Before use for logistic regression and XGBoost models, the
+              input data underwent punctuation removal, negation detection,
+              stemming, and conversion into a term frequency-inverse document
+              frequency array. Following this preprocessing, data were randomly
+              split into training and testing data sets with a 3:1 train:test
+              ratio. Models were developed to predict whether a given article
+              would be published in a first, second, or third tertile journal
+              (0-33rd centile, 34th-66th centile, or 67th-100th centile), as
+              ranked either by impact factor or Eigenfactor score. BERT,
+              XGBoost, and logistic regression models were developed on the
+              training data set before evaluation on the hold-out test data
+              set. The primary outcome was overall classification accuracy for
+              the best-performing model in the prediction of accepting journal
+              impact factor tertile. RESULTS: There were 10,813 articles from
+              382 unique journals. The median impact factor and Eigenfactor
+              score were 2.117 (IQR 1.102-2.622) and 0.00247 (IQR
+              0.00105-0.03), respectively. The BERT model achieved the highest
+              impact factor tertile classification accuracy of 75.0\%, followed
+              by an accuracy of 71.6\% for XGBoost and 65.4\% for logistic
+              regression. Similarly, BERT achieved the highest Eigenfactor
+              score tertile classification accuracy of 73.6\%, followed by an
+              accuracy of 71.8\% for XGBoost and 65.3\% for logistic
+              regression. CONCLUSIONS: Open-source artificial intelligence can
+              predict the impact factor and Eigenfactor score of accepting
+              peer-reviewed journals. Further studies are required to examine
+              the effect on publication success and the time-to-publication of
+              such recommender systems.",
+  journal  = "J. Med. Internet Res.",
+  volume   =  25,
+  pages    = "e42789",
+  month    =  mar,
+  year     =  2023,
+  keywords = "academic journal; artificial intelligence; eye; impact factor;
+              journal impact factor; journal recommender; machine learning;
+              neurology; neuroscience; open source; ophthalmology; predict;
+              publish; radiology; research quality; scholarly literature;
+              scientometric",
+  language = "en"
+}
+
+@ARTICLE{Alohali2022-no,
+  title     = "A machine learning model to predict citation counts of
+               scientific papers in otology field",
+  author    = "Alohali, Yousef A and Fayed, Mahmoud S and Mesallam, Tamer and
+               Abdelsamad, Yassin and Almuhawas, Fida and Hagr, Abdulrahman",
+  abstract  = "One of the most widely used measures of scientific impact is the number of citations. However, due to its heavy-tailed
+               distribution, citations are fundamentally difficult to predict but can be improved. This study was aimed at investigating the
+               factors and parts influencing the citation number of a scientific paper in the otology field. Therefore, this work
+               proposes a new solution that utilizes machine learning and
+               natural language processing to process English text and provides
+               a paper citation as the predicted results. Different algorithms
+               are implemented in this solution, such as linear regression,
+               boosted decision tree, decision forest, and neural networks. The
+               application of neural network regression revealed that papers'
+               abstracts have more influence on the citation numbers of
+               otological articles. This new solution has been developed in
+               visual programming using Microsoft Azure machine learning at the
+               back end and Programming Without Coding Technology at the front
+               end. We recommend using machine learning models to improve the
+               abstracts of research articles to get more citations.",
+  journal   = "Biomed Res. Int.",
+  publisher = "Hindawi Limited",
+  volume    =  2022,
+  pages     = "2239152",
+  month     =  jul,
+  year      =  2022,
+  language  = "en"
+}
+
+@article{10.1162/qss_a_00258,
+  author = {Thelwall, Mike and Kousha, Kayvan and Wilson, Paul and Makita, Meiko and Abdoli, Mahshid and Stuart, Emma and Levitt, Jonathan and Knoth, Petr and Cancellieri, Matteo},
+  title = "{Predicting article quality scores with machine learning: The U.K. Research Excellence Framework}",
+  journal = {Quantitative Science Studies},
+  volume = {4},
+  number = {2},
+  pages = {547-573},
+  year = {2023},
+  month = {05},
+  abstract = "{National research evaluation initiatives and incentive schemes choose between simplistic quantitative indicators and time-consuming peer/expert review, sometimes supported by bibliometrics. Here we assess whether machine learning could provide a third alternative, estimating article quality using more multiple bibliometric and metadata inputs. We investigated this using provisional three-level REF2021 peer review scores for 84,966 articles submitted to the U.K. Research Excellence Framework 2021, matching a Scopus record 2014–18 and with a substantial abstract. We found that accuracy is highest in the medical and physical sciences Units of Assessment (UoAs) and economics, reaching 42\\% above the baseline (72\\% overall) in the best case. This is based on 1,000 bibliometric inputs and half of the articles used for training in each UoA. Prediction accuracies above the baseline for the social science, mathematics, engineering, arts, and humanities UoAs were much lower or close to zero. The Random Forest Classifier (standard or ordinal) and Extreme Gradient Boosting Classifier algorithms performed best from the 32 tested. Accuracy was lower if UoAs were merged or replaced by Scopus broad categories. We increased accuracy with an active learning strategy and by selecting articles with higher prediction probabilities, but this substantially reduced the number of scores predicted.}",
+  issn = {2641-3337},
+  doi = {10.1162/qss_a_00258},
+  url = {https://doi.org/10.1162/qss\_a\_00258},
+  eprint = {https://direct.mit.edu/qss/article-pdf/4/2/547/2136363/qss\_a\_00258.pdf},
+}
+
+@article{doi:10.1152/japplphysiol.00489.2020,
+  author = {van der Zwaard, Stephan and de Leeuw, Arie-Willem and Meerhoff, L. (Rens) A. and Bodine, Sue C. and Knobbe, Arno},
+  title = {Articles with impact: insights into 10 years of research with machine learning},
+  journal = {Journal of Applied Physiology},
+  volume = {129},
+  number = {4},
+  pages = {967-979},
+  year = {2020},
+  doi = {10.1152/japplphysiol.00489.2020},
+  note ={PMID: 32790596},
+  URL = {https://doi.org/10.1152/japplphysiol.00489.2020},
+  eprint = {https://doi.org/10.1152/japplphysiol.00489.2020},
+  abstract = { Worldwide scientific output is growing faster and faster. Academics should not only publish much and fast, but also publish research with impact.
+  The aim of this study is to use machine learning to investigate characteristics of articles that were published in the Journal of Applied Physiology between 2009 and 2018,
+  and characterize high-impact articles. Article impact was assessed for 4,531 publications by three common impact metrics: the Altmetric Attention Scores, downloads, and citations.
+  Additionally, a broad collection of (more than 200) characteristics was collected from the article’s title, abstract, authors, keywords, publication, and article engagement.
+  We constructed random forest (RF) regression models to predict article impact and articles with the highest impact (top-25\% and top-10\% for each impact metric),
+  which were compared with a naive baseline method. RF models outperformed the baseline models when predicting the impact of unseen articles (P < 0.001 for each impact metric).
+  Also, RF models predicted top-25\% and top-10\% high-impact articles with a high accuracy. Moreover, RF models revealed important article characteristics.
+  Higher impact was observed for articles about exercise, training, performance and V̇o2max, reviews, human studies, articles from large collaborations,
+  longer articles with many references and high engagement by scientists, practitioners and public or via news outlets and videos. Lower impact was shown for articles about respiratory physiology or sleep apnea,
+  editorials, animal studies, and titles with a question mark or a reference to places or individuals. In summary,
+  research impact can be predicted and better understood using a combination of article characteristics and machine learning.NEW \& NOTEWORTHY Common measures of article impact are the Altmetric Attention Scores,
+  number of downloads, and number of citations. To our knowledge, this is the first study that applies machine learning on a comprehensive collection of article characteristics to predict article attention scores,
+  downloads, and citations. Using 10 years of research articles, we obtained accurate predictions of high-impact articles and discovered important article characteristics related to article impact. }
+}
