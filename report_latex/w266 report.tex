@@ -45,12 +45,14 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-An impact score of the academic paper is a metric critically important for a scientist's career and attraction of funding for future research. The ability to predict the potential score of a paper could help scientists adjust their presentation strategy to achieve maximum impact. Natural language processing (NLP) is a logical tool to examine what leads to a scientific article's strong impact score because it allows one to analyze an article’s content numerically. In this paper we demonstarte the use of sciBERT with a combination of convolutional neural net to predict the impact factor of the paper based on it abstract.
+An impact score of the academic paper is a metric critically important for a scientist's career and attraction of funding for future research. The ability to predict the potential score of a paper could help scientists adjust their presentation strategy to achieve maximum impact. Natural language processing (NLP) is a logical tool to examine what leads to a scientific article's strong impact score because it allows one to analyze an article’s content numerically. In this paper we demonstrate the use of sciBERT with a combination of convolutional neural net to predict the impact factor of the paper based on it abstract.
 \end{abstract}
 
 \section{Introduction}
 % Not done. Supppoesed to describe motivation for the work.
-An impact score of the academic paper is a metric critically important for a scientist's career and attraction of funding for future research. The ability to predict the potential score of a paper could help scientists adjust their presentation strategy to achieve maximum impact. Our team aims to elucidate the factors that drive acceptance in high-impact journals. The main challenge of this task is that acceptance of a paper is a product of the interplay between the features of the paper and the journal. Statistically speaking, interaction terms in the model have relatively large weights and some interaction terms are likely non-linear. 
+\textbf{Why hypothesis is interesting}. An impact score of the academic paper is a metric critically important for a scientist's career and attraction of funding for future research. The ability to predict the potential score of a paper could help scientists adjust their presentation strategy to achieve maximum impact. Our team aims to elucidate the factors that drive acceptance in high-impact journals. The main challenge of this task is that acceptance of a paper is a product of the interplay between  features of the paper and journal. Statistically speaking, interaction terms in the model have relatively large weights and some interaction terms are likely non-linear.
+\textbf{What the hypothesis is.} We hypothesize that most variation in the paper impact can be explained by the meta data for the paper: country of origin, number of authors, length of the paper and so on. In other words, it is likely that addition of the text data will not increase the statistical power of the model. Two metrics of impact are commonly used in evaluation of scientific research: Journal Impact Factor (JIF) and the number of times the paper was cited in the works of others (Citation index). JIF is calculated for the journal as a whole and thus immediately available for all papers and does not change over time. Citation index is specific for the particular paper, and grows with time. In this project we will focus on JIF because of its more uniform distribution, but will attempt to analyze citation index as well. 
+We selected Pearson's correlation coefficient between the predicted impact and observed impact as the metric to evaluate and compare models. In the social science context correlation coefficient above 0.5 is generally considered moderately strong\citep{KahnemanDaniel2021N:af}. Following this convention  
 % Not done
 
 \section{Background}
@@ -66,20 +68,24 @@ Appendix~\ref{sec:appendix} will contain full EDA
 
 \begin{figure}
 	\includegraphics[width= \columnwidth]{./Images/Pairplot.png}
-	\caption{Distribution of the number of cited references}
-	\label{fig:img1}
+	\caption{Correlation plot of main numerical features}
+	\label{fig:paiplot}
 \end{figure}
-% Not done
 
 \section{Methods}
-% Not done. Supppoesed to describe motivation for the work.
-We are planning to use the sciBERT model in combination with a convolutional network to predict the impact factor. SciBERT was trained on a large corpus of scientific text, including biomedical publications, making us hopeful that it will produce better results on our data set. The exact architecture of the model will be determined via experimentation, but we plan to investigate using convolutional layers on top of all embeddings or separating out sentence-level tokens as a separate input into the final layer, akin to the approach in reference \citep{hs2022}.
+% Not done. Include a description of any proposed work here.
+We are planning to use the sciBERT model in combination with a convolutional network to predict the impact factor. SciBERT was trained on a large corpus of scientific text, including biomedical publications, making us hopeful that it will produce better results on our data set. The exact architecture of the model will be determined via experimentation, but we plan to investigate using convolution layers on top of all embedding or separating out sentence-level tokens as a separate input into the final layer, akin to the approach in reference \citep{hs2022}.
 
 \section{Results and discussion}
-For your baseline model, though feel free to include material for anything else you’ve done
+%For your baseline model, though feel free to include material for anything else you’ve done
 
 \section{Conclusions and Next Steps}
-Section for work you plan to do before submitting the final version. IN the final version that is' going be only conclusions. 
+Section for work you plan to do before submitting the final version. IN the final version that is' going be only conclusions.
+\begin{figure}
+	\includegraphics[width= \columnwidth]{./Images/Countries.png}
+	\caption{Countries of authors and publishers}
+	\label{fig:countries}
+\end{figure}
 
 \section*{Limitations}
 While we are open to different types of limitations, just mentioning that a set of results have been shown for English only probably does not reflect what we expect. 
