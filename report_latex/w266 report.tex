@@ -5,6 +5,7 @@
 \documentclass[11pt]{article}
 \usepackage{graphicx}
 \usepackage{wrapfig}
+\usepackage{amsmath}
 
 % Remove the "review" option to generate the final version.
 \usepackage[]{ACL2023}
@@ -49,17 +50,27 @@ An impact score of the academic paper is a metric critically important for a sci
 \end{abstract}
 
 \section{Introduction}
-% Not done. Supppoesed to describe motivation for the work.
-\textbf{Why hypothesis is interesting}. An impact score of the academic paper is a metric critically important for a scientist's career and attraction of funding for future research. The ability to predict the potential score of a paper could help scientists adjust their presentation strategy to achieve maximum impact. Our team aims to elucidate the factors that drive acceptance in high-impact journals. The main challenge of this task is that acceptance of a paper is a product of the interplay between  features of the paper and journal. Statistically speaking, interaction terms in the model have relatively large weights and some interaction terms are likely non-linear.
-\textbf{What the hypothesis is.} We hypothesize that most variation in the paper impact can be explained by the meta data for the paper: country of origin, number of authors, length of the paper and so on. In other words, it is likely that addition of the text data will not increase the statistical power of the model. Two metrics of impact are commonly used in evaluation of scientific research: Journal Impact Factor (JIF) and the number of times the paper was cited in the works of others (Citation index). JIF is calculated for the journal as a whole and thus immediately available for all papers and does not change over time. Citation index is specific for the particular paper, and grows with time. In this project we will focus on JIF because of its more uniform distribution, but will attempt to analyze citation index as well. 
-We selected Pearson's correlation coefficient between the predicted impact and observed impact as the metric to evaluate and compare models. In the social science context correlation coefficient above 0.5 is generally considered moderately strong\citep{KahnemanDaniel2021N:af}. Following this convention  
-% Not done
+
+A measurement of the academic paper's impact is critically important for a scientist's career and attraction of funding for future research. The ability to predict the paper's significance could help researchers adjust their presentation strategy to achieve maximum visibility. Our team aims to elucidate the factors that drive acceptance in high-impact journals.
+
+We hypothesize that most variation in the impact of an academic paper can be explained by the meta data for the paper: country of origin, number of authors, length of the paper etc. The metrics of impact that is the most amenable for the quantitative analysis is Journal Impact Factor (JIF), wich is, roughly, the average number of times papers in the journals are cited in the works of others.   
+
+We selected Pearson's correlation coefficient between the predicted impact and observed impact as the metric to evaluate and compare models. We will assume that we failed to reject null hypothesis if observed-predicted correlation of the model including text data and metadata is not significantly larger than correlation achieved with the same model lacking text data.  \eqref{eq:hypothesis}.
+\begin{equation}\label{eq:hypothesis}
+	\begin{cases}
+		H_{0}: (r_{w\ text} - r_{only\ metadata}) \leq 0 \\
+		H_{A}: (r_{w\ text} - r_{only\ metadata}) > 0\\
+	\end{cases}       
+\end{equation}
+In the social science context correlation coefficient above 0.5 is generally considered moderately positive\citep{KahnemanDaniel2021N:af}. Following this convention, we will consider our findings to be practically significant only if at least one coefficient exceeds 0.5. If both coefficients are below 0.5, it is likely that our research question can not be answered with this data set and our approach. 
 
 \section{Background}
 % Not done. Supppoesed to describe motivation for the work.
+
 A few attempts have been made to address this issue, demonstrating modest but encouraging success. \citep{Macri2023-tr, Alohali2022-no, 10.1162/qss_a_00258, doi:10.1152/japplphysiol.00489.2020} The most sophisticated model utilized BERT context-aware encoding of the abstract to produce embeddings that were then classified using  SVM, logistic regression or XGBoost to predict the impact factor quintile. This approach demonstrated prediction accuracy of approx. 75%.
 
 \section{Data}
+
 In our work, we will rely on the data extracted from the Web of Science, a paid-access platform that provides access to reference and citation data from academic journals and conference proceedings. The platform allows downloading csv files with the article abstract along with the ISSN identifier of the journal and other metadata. To compose a homogeneous dataset we will focus on a narrow field of radioligand therapy and select only original peer-reviewed articles published between 2000 and 2024. The dataset contains 9137 records and takes up 33MB of disk space. Journal impact factors come from the Claritive Analytics “Journal Impact Factor Report” and contain the journal ISSN as well as the impact factor, by year.
 \subsection{ETL}
 Short description of how downloaded data was transformed into final dataframe. 
