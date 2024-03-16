@@ -50,12 +50,11 @@ An impact score of the academic paper is a metric critically important for a sci
 \end{abstract}
 
 \section{Introduction}
-
 A measurement of the academic paper's impact is critically important for a scientist's career and attraction of funding for future research. The ability to predict the paper's significance could help researchers adjust their presentation strategy to achieve maximum visibility. Our team aims to elucidate the factors that drive acceptance in high-impact journals.
 
-We hypothesize that most variation in the impact of an academic paper can be explained by the meta data for the paper: country of origin, number of authors, length of the paper etc. The metrics of impact that is the most amenable for the quantitative analysis is Journal Impact Factor (JIF), wich is, roughly, the average number of times papers in the journals are cited in the works of others.   
+We hypothesize that variation in the impact of an academic paper can be mostly explained by the metadata of the paper: country of origin, number of authors, length of the paper etc. The metrics of impact that is the most amenable for the quantitative analysis is Journal Impact Factor (JIF), wich is, roughly, the average number of times papers in the journals are cited in the works of others.   
 
-We selected Pearson's correlation coefficient between the predicted impact and observed impact as the metric to evaluate and compare models. We will assume that we failed to reject null hypothesis if observed-predicted correlation of the model including text data and metadata is not significantly larger than correlation achieved with the same model lacking text data.  \eqref{eq:hypothesis}.
+We selected Pearson's correlation coefficient between the predicted impact and observed impact as the metric to evaluate and compare models. We will assume that we failed to reject null hypothesis if observed-predicted correlation of the model including text data and metadata is not significantly larger than correlation achieved with the same model lacking text data (Eq.~\ref{eq:hypothesis}).
 \begin{equation}\label{eq:hypothesis}
 	\begin{cases}
 		H_{0}: (r_{w\ text} - r_{only\ metadata}) \leq 0 \\
@@ -66,22 +65,18 @@ In the social science context correlation coefficient above 0.5 is generally con
 
 \section{Background}
 % Not done. Supppoesed to describe motivation for the work.
-
-A few attempts have been made to address this issue, demonstrating modest but encouraging success. \citep{Macri2023-tr, Alohali2022-no, 10.1162/qss_a_00258, doi:10.1152/japplphysiol.00489.2020} The most sophisticated model utilized BERT context-aware encoding of the abstract to produce embeddings that were then classified using  SVM, logistic regression or XGBoost to predict the impact factor quintile. This approach demonstrated prediction accuracy of approx. 75%.
+A few attempts have been made to address this issue, demonstrating modest but encouraging success. \citep{Macri2023-tr, Alohali2022-no, 10.1162/qss_a_00258, doi:10.1152/japplphysiol.00489.2020} The most sophisticated model utilized BERT context-aware encoding of the abstract to produce embedding that were then classified using  SVM, logistic regression or XGBoost to predict the impact factor quintile. This approach demonstrated prediction accuracy of approx. 75%.
 
 \section{Data}
+We will rely on the data extracted from the Web of Science, a platform that provides access to citation metrics for the majority of life science publications. The platform allows downloading csv files with the article abstract along with the ISSN identifier of the journal and other metadata. To reduce variability unrelated to the research question we will focus on a narrow field of radioligand therapy and select only original peer-reviewed articles published in English between 2000 and 2024. JIFs are available from Claritive Analytics “Journal Impact Factor Report” and contain the journal ISSN as well as the impact factor, by year. Merging these two datasets on ISSN we achieve our raw dateset, containing approximately 4500 records.
 
-In our work, we will rely on the data extracted from the Web of Science, a paid-access platform that provides access to reference and citation data from academic journals and conference proceedings. The platform allows downloading csv files with the article abstract along with the ISSN identifier of the journal and other metadata. To compose a homogeneous dataset we will focus on a narrow field of radioligand therapy and select only original peer-reviewed articles published between 2000 and 2024. The dataset contains 9137 records and takes up 33MB of disk space. Journal impact factors come from the Claritive Analytics “Journal Impact Factor Report” and contain the journal ISSN as well as the impact factor, by year.
-\subsection{ETL}
-Short description of how downloaded data was transformed into final dataframe. 
-\subsection{EDA}
-Appendix~\ref{sec:appendix} will contain full EDA
-
+Figure~\ref{fig:paiplot} shows the distribution and correlation matrix for the main quantitative variables available in the metadata
 \begin{figure}
 	\includegraphics[width= \columnwidth]{./Images/Pairplot.png}
 	\caption{Correlation plot of main numerical features}
 	\label{fig:paiplot}
 \end{figure}
+Appendix~\ref{sec:appendix} will contain full EDA
 
 \section{Methods}
 % Not done. Include a description of any proposed work here.
