@@ -52,7 +52,7 @@ An impact score of the academic paper is a metric critically important for a sci
 \section{Introduction}
 A measurement of the academic paper's impact is critically important for a scientist's career and attraction of funding for future research. The ability to predict the paper's significance could help researchers adjust their presentation strategy to achieve maximum visibility. Our team aims to elucidate the factors that drive acceptance in high-impact journals.
 
-We hypothesize that variation in the impact of an academic paper can be mostly explained by the metadata of the paper: country of origin, number of authors, length of the paper etc. The metrics of impact that is the most amenable for the quantitative analysis is Journal Impact Factor (JIF), wich is, roughly, the average number of times papers in the journals are cited in the works of others.   
+Our hypothesis is that variation in the impact of an academic paper can be mostly explained by the metadata of the paper: country of origin, number of authors, length of the paper etc. The metrics of impact that is the most amenable for the quantitative analysis is Journal Impact Factor (JIF), wich is, roughly, the average number of times papers in the journals are cited in the works of others.   
 
 We selected Pearson's correlation coefficient between the predicted impact and observed impact as the metric to evaluate and compare models. We will assume that we failed to reject null hypothesis if observed-predicted correlation of the model including text data and metadata is not significantly larger than correlation achieved with the same model lacking text data (Eq.~\ref{eq:hypothesis}).
 \begin{equation}\label{eq:hypothesis}
@@ -69,7 +69,11 @@ A few attempts have been made to address this issue, demonstrating modest but en
 
 \section{Data}
 We will rely on the data extracted from the Web of Science, a platform that provides access to citation metrics for the majority of life science publications. The platform allows downloading csv files with the article abstract along with the ISSN identifier of the journal and other metadata. To reduce variability unrelated to the research question we will focus on a narrow field of radioligand therapy and select only original peer-reviewed articles published in English between 2000 and 2022. JIFs are available from Claritive Analytics “Journal Impact Factor Report” and contain the journal ISSN as well as the impact factor, by year. Merging these two datasets on ISSN we achieve our raw dateset, containing approximately 4500 records.
-Since our aim is to support researcher decision on publication strategy, we focus on the features that are available to the paper authors at the time of submission: 'Year Published', 'Authors', 'Document Title', 'Author Keywords', 'Abstract', 'Author Address', 'Funding Agency and Grant Number', 'Cited Reference Count', 'Page Count', 'Web of Science Categories'. Using author identities as features would result in very sparse set of categorical variables, therefore we reduced the author information to just the number of authors and the author address to just the country. We also reduced the funding information to a binary variable funded/not-funded. Web of Science categories are assigned after the publication, but we assumed that authors can highlight different aspects of the same research project to influence the categories assigned, therefore we downsampled the categories features to just 5 high level, most common categories encountered in the data set. 
+
+Since our aim is to support researcher decision on publication strategy, we focus on the features that are available to the paper authors at the time of submission: 'Year Published', 'Authors', 'Document Title', 'Author Keywords', 'Abstract', 'Author Address', 'Funding Agency and Grant Number', 'Cited Reference Count', 'Page Count'. Using author identities as features would result in very sparse set of categorical variables, therefore we reduced the author information to just the number of authors and the author address to just the country. We also reduced the funding information to a binary variable funded/not-funded.
+
+'Abstract' is the most important and relevant feature of the paper. Together with the title and author's keywords it represents condensed meaning of the paper. Full text of the paper would have been a lot more information reach, but would also require significantly more computational resources. 
+
 Figure~\ref{fig:paiplot} shows the distribution and correlation matrix for the main quantitative variables available in the metadata
 \begin{figure}
 	\includegraphics[width= \columnwidth]{./Images/Pairplot.png}
@@ -79,11 +83,22 @@ Figure~\ref{fig:paiplot} shows the distribution and correlation matrix for the m
 Appendix~\ref{sec:appendix} will contain full EDA
 
 \section{Methods}
-% Not done. Include a description of any proposed work here.
-We are planning to use the sciBERT model in combination with a convolutional network to predict the impact factor. SciBERT was trained on a large corpus of scientific text, including biomedical publications, making us hopeful that it will produce better results on our data set. The exact architecture of the model will be determined via experimentation, but we plan to investigate using convolution layers on top of all embedding or separating out sentence-level tokens as a separate input into the final layer, akin to the approach in reference \citep{hs2022}.
+We will use regression models based on neural networks to predict the impact of the publications. To evaluate the importance of text data, we will compare predictive power of the model that includes text data vs the model that is based solely on metadata. We will reject null hypothesis if the addition of text data to the model significantly increase the Pearson's correlation coefficient between observed and predicted impact values.
+
+Features selected after EDA fall into three general categories: numerical features, categorical features and text. While numerical features can be included into the model as-is, categorical variables and text need to be transformed before they become inputs into neural network. One-hot-encoded representation is a common way to transform categorical variables, but it lacks the ability to capture patterns present in the data. For instance, papers originating from Canada are likely similar to ones written in the USA, but very different from papers submitted from China. To preserve these patterns, we have chosen to use learned embedding representation of the categorical variables \citep{DBLP:journals/corr/GuoB16}.
+
+Transformation of text into contextually-aware embedding is commonly achieved using BERT \citep{DBLP:journals/corr/abs-1810-04805}. sciBERT, a similar model trained on the large corpus of medical and scientific literature, was recently presented \citep{DBLP:journals/corr/abs-1903-10676} and we plan to compare these two models. Both variants of BERT yield several vectors that can represent the text: pooled vector, cls vector or a set of vectors for each input token. We plan to investigate potential advantages of using these outputs. 
+
+The exact way representations of numerical, categorical and text data are combined will be investigated. For the baseline model we concatenated all three vectors and used them as input into a linear regression. In the future we plan to also subdivide the abstract into individual sentences and use cls tokens for more fine-grained text representation. We also plan to use the 2D-representation of text based on the individual word embedding (or sentence-level cls tokens) and process it with convolutional  neural network. Other combinations of the sentence-level and abstract-level embeddings can be used as well \citep{hs2022}. It is also intriguing to use individual embeddings of the keywords, because they were selected by the authors as the most representative of the paper.
 
 \section{Results and discussion}
-%For your baseline model, though feel free to include material for anything else you’ve done
+For the baseline model we built a regression on top of 5 concatenated vectors: (1) numerical features, (2) learned embeding for 'Funding" feature
+Figure~\ref{fig:correlations} shows correlation plots obtained for two models: one that is based solely on metadata and one that also includes BERT encoding. Observed-predicted Pearson's correlation using metadata alone was 0.38, and adding BERT's cls token improved it to 0.47 (p = 0.0034 after Fisher's transformation).
+\begin{figure}
+	\includegraphics[width= \columnwidth]{./Images/Metadata w BERT.png}
+	\caption{Correlation plot of main numerical features}
+	\label{fig:correlations}
+\end{figure}
 
 \section{Conclusions and Next Steps}
 Section for work you plan to do before submitting the final version. IN the final version that is' going be only conclusions.
