@@ -92,12 +92,19 @@ Transformation of text into contextually-aware embedding is commonly achieved us
 The exact way representations of numerical, categorical and text data are combined will be investigated. For the baseline model we concatenated all three vectors and used them as input into a linear regression. In the future we plan to also subdivide the abstract into individual sentences and use cls tokens for more fine-grained text representation. We also plan to use the 2D-representation of text based on the individual word embedding (or sentence-level cls tokens) and process it with convolutional  neural network. Other combinations of the sentence-level and abstract-level embeddings can be used as well \citep{hs2022}. It is also intriguing to use individual embeddings of the keywords, because they were selected by the authors as the most representative of the paper.
 
 \section{Results and discussion}
-For the baseline model we built a regression on top of 5 concatenated vectors: (1) numerical features, (2) learned embeding for 'Funding" feature
-Figure~\ref{fig:correlations} shows correlation plots obtained for two models: one that is based solely on metadata and one that also includes BERT encoding. Observed-predicted Pearson's correlation using metadata alone was 0.38, and adding BERT's cls token improved it to 0.47 (p = 0.0034 after Fisher's transformation).
+For the baseline model we built a two regression models. One based on metadata only was based on numerical features concatenated with learned embedings for each of the categorical features. The resulting vector was fed directly into the dense output layer with one element and linear activation. Interestingly, adding additional dense layers before the out layer did not improve performance of this baseline model. The model including text data had identical architecture, but also included cls token of uncased BERT output from the abstract. Figure~\ref{fig:meta_no_meta} shows correlation plots obtained for two models. Observed-predicted Pearson's correlation using metadata alone was 0.38, and adding BERT's cls token improved it to 0.47 (p = 0.0034 after Fisher's transformation, one-tailed, assuming independent samples). 
 \begin{figure}
 	\includegraphics[width= \columnwidth]{./Images/Metadata w BERT.png}
-	\caption{Correlation plot of main numerical features}
-	\label{fig:correlations}
+	\caption{Observed-Predicted correlation.}
+	\label{fig:meta_no_meta}
+\end{figure}
+
+While the improvement from adding text data was statistically significant, neither model crossed our pre-determined threshold of r = 0.5, casting doubts on the predictive power of this approach. To improve the correlation we experimented with model based on BERT token alone. Surprisingly, just cls token from the BERT transformation of abstract, coupled with a dense layer and a regression layer yielded r=0.50 and switching to sciBERT improved it even further, up to 0.56 (p = 0.021). Figure~\ref{fig:BERT_vs_sciBERT} illustrates this experiment.
+
+\begin{figure}
+	\includegraphics[width= \columnwidth]{./Images/BERT vs sciBERT.png}
+	\caption{Observed-Predicted correlation for two BERT models.}
+	\label{fig:BERT_vs_sciBERT}
 \end{figure}
 
 \section{Conclusions and Next Steps}
